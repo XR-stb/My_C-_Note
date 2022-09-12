@@ -1,4 +1,3 @@
-```cpp
 #include <any>
 #include <iostream>
 #include <list>
@@ -45,5 +44,3 @@ int main() {
 * Bad any_cast
 * 
 */
-
-```
