@@ -123,3 +123,38 @@ int main(){
     return 0;
 }
 ```
+当然也是有办法可以捕捉的
+```cpp
+
+#include<iostream>
+#include<chrono>
+#include<future>
+#define END auto end = chrono::steady_clock::now(); \
+            auto dist = chrono::duration<double>(end - start); \
+            cout << "程序总用时: " << dist.count() << " s " << endl; 
+
+using namespace std;
+
+typedef int ResType;
+
+ResType throw_int(){
+    throw 1;
+}
+
+
+
+int main(){
+    auto start = chrono::steady_clock::now();
+
+    auto f = async(throw_int);
+    try{
+        f.get();
+    }catch(int e){
+        cout << e << endl;
+    }
+    
+    END;
+    system("pause");
+    return 0;
+}
+```
