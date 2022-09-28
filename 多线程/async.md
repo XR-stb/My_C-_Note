@@ -29,7 +29,6 @@ ResType calc_2(){
     return sum;
 }
 
-
 int main(){
     auto start = chrono::steady_clock::now();
     // calc_1();
@@ -70,8 +69,6 @@ ResType output(string s){
     }
 }
 
-
-
 int main(){
     auto start = chrono::steady_clock::now();
 
@@ -106,8 +103,6 @@ ResType throw_int(){
     throw 1;
 }
 
-
-
 int main(){
     auto start = chrono::steady_clock::now();
 
@@ -140,8 +135,6 @@ typedef int ResType;
 ResType throw_int(){
     throw 1;
 }
-
-
 
 int main(){
     auto start = chrono::steady_clock::now();
