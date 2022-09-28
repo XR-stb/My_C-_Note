@@ -88,3 +88,38 @@ int main(){
     return 0;
 }
 ```
+#### 3.异步过程中的异常
+```cpp
+
+#include<iostream>
+#include<chrono>
+#include<future>
+#define END auto end = chrono::steady_clock::now(); \
+            auto dist = chrono::duration<double>(end - start); \
+            cout << "程序总用时: " << dist.count() << " s " << endl; 
+
+using namespace std;
+
+typedef int ResType;
+
+ResType throw_int(){
+    throw 1;
+}
+
+
+
+int main(){
+    auto start = chrono::steady_clock::now();
+
+    try{
+        thread th(throw_int);
+        th.join(); // wait thread end
+    }catch(const std::exception& e){ //c++中无法跨线程捕捉异常，所以程序会直接退出
+        std::cerr << e.what() << '\n';
+    }
+    
+    END;
+    system("pause");
+    return 0;
+}
+```
