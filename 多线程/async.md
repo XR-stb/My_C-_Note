@@ -1,3 +1,4 @@
+#### 1.使用异步加速计算
 ```cpp
 #include<iostream>
 #include<chrono>
@@ -46,7 +47,44 @@ int main(){
     return 0;
 }
 ```
-
+#### 2.异步的顺序
 ```cpp
 
+#include<iostream>
+#include<chrono>
+#include<future>
+#define END auto end = chrono::steady_clock::now(); \
+            auto dist = chrono::duration<double>(end - start); \
+            cout << "程序总用时: " << dist.count() << " s " << endl; 
+
+using namespace std;
+
+typedef void ResType;
+
+const int cnt = 100;
+
+ResType output(string s){
+    for(int i = 0; i < cnt; i++){
+        cout << s << endl;
+        cout.flush();//flush buffer
+    }
+}
+
+
+
+int main(){
+    auto start = chrono::steady_clock::now();
+
+    future<ResType> future_1 = async(std::launch::async, output, "hello"s); //异步求值
+    future<ResType> future_2 = async(std::launch::deferred, output, "wo wo wo"s); //惰性求值
+
+    output("wait me!");
+
+    future_1.get();
+    future_2.get();
+
+    END;
+    system("pause");
+    return 0;
+}
 ```
