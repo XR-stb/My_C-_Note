@@ -151,3 +151,19 @@ int main(){
     return 0;
 }
 ```
+#### 4.异步等待 wait(). wait_for(). wait_until()
+使用wait可以等该异步线程执行完再继续运行
+```cpp
+auto f = async(std::launch::async, output, "hello"s);
+
+f.wait();
+
+output("world");
+/*
+hello
+hello
+...
+world
+
+*/
+```
