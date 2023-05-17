@@ -35,3 +35,32 @@ B::impl
 A::impl
 B::impl
 ```
+
+可以看到，通过模板和继承，AB得到了不属于他们的力量
+
+```cpp
+#include <iostream>
+#include <string_view>
+
+template<class T>
+struct Base{
+    void getClassName(){
+        std::string_view className = typeid(T).name();
+        std::cout << className.substr(1) << "\n";
+    }
+};
+
+struct A : public Base<A> {};
+
+struct B : public Base<B> {};
+
+int main() {
+    A a; a.getClassName();
+    B b; b.getClassName();
+}
+```
+output:
+```
+A
+B
+```
